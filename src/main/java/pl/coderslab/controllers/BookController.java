@@ -11,7 +11,10 @@ import pl.coderslab.dao.BookDao;
 import pl.coderslab.dao.PublisherDao;
 import pl.coderslab.entity.Author;
 import pl.coderslab.entity.Book;
+import pl.coderslab.entity.Category;
 import pl.coderslab.entity.Publisher;
+import pl.coderslab.repository.BookRepository;
+import pl.coderslab.repository.CategoryRepository;
 import pl.coderslab.validation.PropositionGroup;
 
 import javax.validation.Valid;
@@ -24,6 +27,12 @@ import java.util.List;
 public class BookController {
     @Autowired
     BookDao bookDao;
+
+    @Autowired
+    BookRepository bookRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @Autowired
     PublisherDao publisherDao;
@@ -91,6 +100,21 @@ public class BookController {
     public String allBooks(Model model) {
         model.addAttribute("books", bookDao.findAll());
         return "book/list";
+    }
+
+    @RequestMapping("/repoTest")
+    @ResponseBody
+    public String repoTest() {
+        StringBuilder builder = new StringBuilder();
+//        return String.valueOf(bookRepository.count());
+//        List<Book> books = bookRepository.findAllByCategory(categoryRepository.findOne(3L));
+//        for (Book book: books) {
+//            builder.append(String.valueOf(book.getId())).append(". ").append(book.getTitle()).append(", ");
+//        }
+        Category category = categoryRepository.findByName("sci-fy");
+        Book book = bookRepository.findFirstByCategoryOrderByTitle(category);
+        builder.append(String.valueOf(book.getId())).append(". ").append(book.getTitle());
+        return builder.toString();
     }
 
 }
