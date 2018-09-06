@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import pl.coderslab.AuthorConverter;
+import pl.coderslab.converters.AuthorConverter;
 
 import javax.persistence.EntityManagerFactory;
 import javax.validation.Validator;
