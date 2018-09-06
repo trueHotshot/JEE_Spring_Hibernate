@@ -117,4 +117,11 @@ public class BookController {
         return builder.toString();
     }
 
+    @RequestMapping("/resetRating/{rating}")
+    @ResponseBody
+    public String reset(@PathVariable double rating) {
+        bookRepository.resetRating(rating);
+        return "success";
+    }
+
 }

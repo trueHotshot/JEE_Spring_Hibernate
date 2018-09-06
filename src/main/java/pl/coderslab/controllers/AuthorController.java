@@ -9,6 +9,8 @@ import pl.coderslab.dao.AuthorDao;
 import pl.coderslab.dao.BookDao;
 import pl.coderslab.entity.Author;
 import pl.coderslab.entity.Book;
+import pl.coderslab.entity.Category;
+import pl.coderslab.repository.AuthorRepository;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -18,6 +20,9 @@ import java.util.List;
 public class AuthorController {
     @Autowired
     AuthorDao authorDao;
+
+    @Autowired
+    AuthorRepository authorRepository;
 
     @ModelAttribute("authors")
     public List<Author> getAuthors() {
@@ -62,6 +67,21 @@ public class AuthorController {
 
         model.addAttribute("authors", authorDao.findAll());
         return "author/list";
+    }
+
+    @RequestMapping("/authorTest")
+    @ResponseBody
+    public String authorTest() {
+        StringBuilder builder = new StringBuilder();
+//        return String.valueOf(bookRepository.count());
+        List<Author> authors = authorRepository.findByEmailStartsWith("paz");
+        for (Author author : authors) {
+            builder.append(String.valueOf(author.getId())).append(". ").append(author.getLastName()).append(", ");
+        }
+//        Category category = categoryRepository.findByName("sci-fy");
+//        Book book = bookRepository.findFirstByCategoryOrderByTitle(category);
+//        builder.append(String.valueOf(book.getId())).append(". ").append(book.getTitle());
+        return builder.toString();
     }
 
 

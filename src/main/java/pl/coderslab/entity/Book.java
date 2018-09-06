@@ -25,7 +25,7 @@ public class Book {
     // @Column(nullable = false, length = 200)
     private String title;
 
-    @NotNull(groups={PropositionGroup.class})
+    @NotEmpty(groups={PropositionGroup.class})
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Author> authors;
 
